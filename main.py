@@ -4,6 +4,8 @@ import requests
 
 app = FastAPI()
 
+gecmis = []
+
 class Kalip(BaseModel):
 
     mesaj : str
@@ -16,18 +18,18 @@ def ana_sayfa():
 @app.post("/chat")
 
 def veri_al(veri: Kalip):
+    gecmis.append({"role": "user", "content": veri.mesaj})
     adres = "http://localhost:11434/api/chat"
 
     istek =  {
     "model": "qwen3.5:4b",
-   "messages": [
-    
-    {"role": "user", "content": veri.mesaj}
-],
+   "messages": 
+       gecmis ,
     "stream": False
 }
     yanit = requests.post(adres, json=istek)
     sonuc = yanit.json()
+    gecmis.append({"role": "assistant", "content":sonuc["message"]["content"]})
 
     return {"cevap":sonuc["message"]["content"]}
 
