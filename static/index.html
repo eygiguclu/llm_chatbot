@@ -3,26 +3,53 @@
     <head>
         <title>Sohbet</title>
         <style>
+            #logo {
+                ddisplay: block;
+                position: fixed;
+                bottom: 15px;
+                right: 15px;
+                margin: 0;
+                width: 200px;
+}
+             #bayrak {
+                ddisplay: block;
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                margin: 0;
+                width: 150px;
+}
             body{
                 
-                background-color:rgb(209, 209, 212);
-                color:whitesmoke;
+                background-color: rgb(33, 33, 33);
+                color: rgb(236, 236, 236);
                 font-family:Georgia, 'Times New Roman', Times, serif;
                 max-width: 800px;
                 margin: 0 auto;
                 
             }
                 #sohbetkutusu{
-                    width: 500px;
-                    padding: 10px;
+                    width: 80%;
+                    padding: 15px 20px;
+                    color:rgb	rgb(236, 236, 236);
+                    background-color: rgb(236, 236, 236);
+                    border: 1px solid rgb(236, 236, 236);
+                    border-radius: 25px;
+                    font-size: 18px;
+                    font-weight: bold;
                 }
                 #gonderbutonu{
-                    background-color: rgb(2, 18, 109);
-                    color: white;
-                    padding: 10px 20px;
-                    font-size: 17px;
+                    background-color: rgb(236, 236, 236);
+                    color: rgb(33, 33, 33);
+                    padding: 15px 22px;
+                    font-size: 18px;
                     border: none;
+                    border-radius: 25px;
                     cursor: pointer;
+                    position: relative;
+                    top: 15px;
+                    font-weight: bold;
+                    
                     
                 }
                 #sohbetalani {
@@ -32,47 +59,58 @@
                     padding: 10px;
                     overflow-y: auto;
                     box-sizing: border-box;
+                    font-weight: bold;
 
                 } 
                 
                 .kullanici {
-                    background-color: royalblue;
-                    padding: 8px 12px;
+                     background-color: white;
+                     color:rgb(33, 33, 33);
+                     border-radius: 18px;
+                    padding: 16px 24px;
                     margin: 5px 0 5px auto;
-                    border-radius: 12px;
                     width: fit-content;
                     max-width: 70%;
+                    
                 }
 
                 .bot {
-                    background-color: dimgray;
+                    background-color: transparent;
                     padding: 8px 12px;
                     margin: 5px auto 5px 0;
                     border-radius: 12px;
                     width: fit-content;
-                    max-width: 70%;
+                    max-width: 100%;
+                    
                 }
                 
                 
                 h1 {
                 text-align: center;
-                color: darkblue;
+                color: rgb(236, 236, 236);
+                font-weight: bold;
                  }
 
                  h2 {
                 text-align: center;
-                color: darkblue;
+                color: rgb(236, 236, 236);
+                
                  }
                 
                  #sohbetalani{
-                background-color: rgb(40, 40, 40);
+                background-color: transparent;
                 border-radius: 12px;
+                width: 100%;
                 height: 70vh;
+                border: none;
+                background-color: transparent;
+                font-weight: bold;
                 }
 
                 #yazialani {
                     text-align: center;
                     margin-top: 30px;
+                    font-weight: bold;
                 }
 
 
@@ -82,8 +120,10 @@
     </head>
 
     <body>
+            <img id="logo" src="/logo.png" alt="SSTEK logosu">
+            <img id="bayrak" src="/bayrak.gif" alt="TurkBayragi">
             <h1>SSTEK AI</h1>
-            <h2>Savunma Sanayi Teknolojileri AS</h2>
+            <h2>Savunma Sanayi Teknolojileri AŞ</h2>
             <div id="sohbetalani"></div>
             <div id="yazialani">
             <input type="text" id="sohbetkutusu" placeholder="Bir mesaj yazın...">
@@ -120,6 +160,12 @@
                         botsatiri.className = "bot";
                         sohbetalani.appendChild(botsatiri);
                     });
+
+                    sohbetkutusu.addEventListener("keydown", function(gonder) {
+                        if (gonder.key === "Enter") {
+                             gonderbutonu.click();
+    }
+});
                 
             </script>
 
