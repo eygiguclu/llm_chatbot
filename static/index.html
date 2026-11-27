@@ -2,15 +2,95 @@
 <html>
     <head>
         <title>Sohbet</title>
+        <style>
+            body{
+                
+                background-color:rgb(209, 209, 212);
+                color:whitesmoke;
+                font-family:Georgia, 'Times New Roman', Times, serif;
+                max-width: 800px;
+                margin: 0 auto;
+                
+            }
+                #sohbetkutusu{
+                    width: 500px;
+                    padding: 10px;
+                }
+                #gonderbutonu{
+                    background-color: rgb(2, 18, 109);
+                    color: white;
+                    padding: 10px 20px;
+                    font-size: 17px;
+                    border: none;
+                    cursor: pointer;
+                    
+                }
+                #sohbetalani {
+                    width: 100%;
+                    height: 500px;
+                    border: 1px solid gray;
+                    padding: 10px;
+                    overflow-y: auto;
+                    box-sizing: border-box;
+
+                } 
+                
+                .kullanici {
+                    background-color: royalblue;
+                    padding: 8px 12px;
+                    margin: 5px 0 5px auto;
+                    border-radius: 12px;
+                    width: fit-content;
+                    max-width: 70%;
+                }
+
+                .bot {
+                    background-color: dimgray;
+                    padding: 8px 12px;
+                    margin: 5px auto 5px 0;
+                    border-radius: 12px;
+                    width: fit-content;
+                    max-width: 70%;
+                }
+                
+                
+                h1 {
+                text-align: center;
+                color: darkblue;
+                 }
+
+                 h2 {
+                text-align: center;
+                color: darkblue;
+                 }
+                
+                 #sohbetalani{
+                background-color: rgb(40, 40, 40);
+                border-radius: 12px;
+                height: 70vh;
+                }
+
+                #yazialani {
+                    text-align: center;
+                    margin-top: 30px;
+                }
+
+
+               
+        </style>
     
     </head>
 
     <body>
-            <h1>Sohbet uygulaması</h1>
+            <h1>SSTEK AI</h1>
+            <h2>Savunma Sanayi Teknolojileri AS</h2>
             <div id="sohbetalani"></div>
-            <input type="text" id="sohbetkutusu" placeholder="mesajını buraya yazabilirsin">
-            <button id="gonderbutonu">gönder</button>
-            <button id="temizlemebutonu">sil</button>
+            <div id="yazialani">
+            <input type="text" id="sohbetkutusu" placeholder="Bir mesaj yazın...">
+            <button id="gonderbutonu">GÖNDER</button>
+            </div>
+            
+            
              
             <script>
                 console.log("sohbet hazir");
@@ -25,6 +105,7 @@
                         const mesaj = sohbetkutusu.value;
                         const kullanicisatiri = document.createElement("div");
                         kullanicisatiri.textContent = mesaj;
+                        kullanicisatiri.className = "kullanici";
                         sohbetalani.appendChild(kullanicisatiri);
                         sohbetkutusu.value = "";
                         const sunucucevabi = await fetch("/chat", {
@@ -36,6 +117,7 @@
                         console.log(hamcevap);
                         const botsatiri=document.createElement("div");
                         botsatiri.textContent = hamcevap.cevap;
+                        botsatiri.className = "bot";
                         sohbetalani.appendChild(botsatiri);
                     });
                 
