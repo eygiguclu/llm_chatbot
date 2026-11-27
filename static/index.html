@@ -21,11 +21,22 @@
                 const sohbetalani = document.getElementById("sohbetalani");
                 console.log(sohbetalani);
                 gonderbutonu.addEventListener("click", 
-                    function() {
+                    async function() {
                         const mesaj = sohbetkutusu.value;
                         const kullanicisatiri = document.createElement("div");
                         kullanicisatiri.textContent = mesaj;
                         sohbetalani.appendChild(kullanicisatiri);
+                        sohbetkutusu.value = "";
+                        const sunucucevabi = await fetch("/chat", {
+                                method: "POST",
+                                headers: {"Content-Type": "application/json"},
+                                body: JSON.stringify({mesaj:mesaj})
+                                    });
+                        const hamcevap = await sunucucevabi.json();
+                        console.log(hamcevap);
+                        const botsatiri=document.createElement("div");
+                        botsatiri.textContent = hamcevap.cevap;
+                        sohbetalani.appendChild(botsatiri);
                     });
                 
             </script>

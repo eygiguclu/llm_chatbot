@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import requests
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
@@ -10,9 +11,9 @@ class Kalip(BaseModel):
 
     mesaj : str
 
-@app.get("/")
+''' @app.get("/")
 def ana_sayfa():
-    return {"mesaj": "Merhaba"}
+   return {"mesaj": "Merhaba"} '''
 
 
 @app.post("/chat")
@@ -32,4 +33,6 @@ def veri_al(veri: Kalip):
     gecmis.append({"role": "assistant", "content":sonuc["message"]["content"]})
 
     return {"cevap":sonuc["message"]["content"]}
+
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
