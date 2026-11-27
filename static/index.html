@@ -4,7 +4,7 @@
         <title>Sohbet</title>
         <style>
             #logo {
-                ddisplay: block;
+                display: block;
                 position: fixed;
                 bottom: 15px;
                 right: 15px;
@@ -12,13 +12,44 @@
                 width: 200px;
 }
              #bayrak {
-                ddisplay: block;
+                display: block;
                 position: fixed;
                 top: 15px;
-                left: 15px;
+                right: 15px;
                 margin: 0;
                 width: 150px;
-}
+                z-index: 10; }
+
+            #solpanel {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 300px;
+                height: 100%;
+                background-color: rgb(25, 25, 25);
+                padding: 20px;
+                box-sizing: border-box;
+                font-weight: bold;
+                font-size: 24px;
+                text-align: center;
+                
+              
+            }
+
+            #yenisohbet {
+                background-color: rgb(48, 48, 48);
+                color: rgb(236, 236, 236);
+                border: none;
+                border-radius: 12px;
+                width: 100%;
+                padding: 14px;
+                font-size: 16px;
+                font-family:Georgia, 'Times New Roman', Times, serif;
+                font-weight: bold;
+                display: block;
+                margin: 0 auto;
+            }
+
             body{
                 
                 background-color: rgb(33, 33, 33);
@@ -124,39 +155,62 @@
             <img id="bayrak" src="/bayrak.gif" alt="TurkBayragi">
             <h1>SSTEK AI</h1>
             <h2>Savunma Sanayi Teknolojileri AŞ</h2>
+
+            <div id="solpanel">
+            <h3>Sohbet</h3>
+            <button id="yenisohbet">Yeni sohbet</button>
+            </div>
+
             <div id="sohbetalani"></div>
+
             <div id="yazialani">
             <input type="text" id="sohbetkutusu" placeholder="Bir mesaj yazın...">
             <button id="gonderbutonu">GÖNDER</button>
             </div>
+
+           
             
             
              
             <script>
                 console.log("sohbet hazir");
+
                 const gonderbutonu = document.getElementById("gonderbutonu");
                 console.log(gonderbutonu);
+
+                const yenisohbet = document.getElementById("yenisohbet");
+                console.log(yenisohbet);
+
                 const sohbetkutusu = document.getElementById("sohbetkutusu");
                 console.log(sohbetkutusu);
+
                 const sohbetalani = document.getElementById("sohbetalani");
                 console.log(sohbetalani);
+
                 gonderbutonu.addEventListener("click", 
                     async function() {
                         const mesaj = sohbetkutusu.value;
+
                         const kullanicisatiri = document.createElement("div");
                         kullanicisatiri.textContent = mesaj;
                         kullanicisatiri.className = "kullanici";
+
                         sohbetalani.appendChild(kullanicisatiri);
+
                         sohbetkutusu.value = "";
+
                         const sunucucevabi = await fetch("/chat", {
                                 method: "POST",
                                 headers: {"Content-Type": "application/json"},
                                 body: JSON.stringify({mesaj:mesaj})
                                     });
+
                         const hamcevap = await sunucucevabi.json();
                         console.log(hamcevap);
+
                         const botsatiri=document.createElement("div");
                         botsatiri.textContent = hamcevap.cevap;
+
                         botsatiri.className = "bot";
                         sohbetalani.appendChild(botsatiri);
                     });
@@ -165,6 +219,11 @@
                         if (gonder.key === "Enter") {
                              gonderbutonu.click();
     }
+});
+
+                    yenisohbet.addEventListener("click", async function() {
+                    await fetch("/sifirla", {method: "POST"});
+                    sohbetalani.innerHTML = "";
 });
                 
             </script>

@@ -34,5 +34,10 @@ def veri_al(veri: Kalip):
 
     return {"cevap":sonuc["message"]["content"]}
 
+@app.post("/sifirla")
+def sifirla():
+    gecmis.clear()
+    return {"durum": "sifirlandi"}
+
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
