@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sohbet</title>
+    
+    </head>
+
+    <body>
+            <h1>Sohbet uygulaması</h1>
+            <div id="sohbetalani"></div>
+            <input type="text" id="sohbetkutusu" placeholder="mesajını buraya yazabilirsin">
+            <button id="gonderbutonu">gönder</button>
+            <button id="temizlemebutonu">sil</button>
+             
+            <script>
+                console.log("sohbet hazir");
+                const gonderbutonu = document.getElementById("gonderbutonu");
+                console.log(gonderbutonu);
+                const sohbetkutusu = document.getElementById("sohbetkutusu");
+                console.log(sohbetkutusu);
+                const sohbetalani = document.getElementById("sohbetalani");
+                console.log(sohbetalani);
+                gonderbutonu.addEventListener("click", 
+                    function() {
+                        const mesaj = sohbetkutusu.value;
+                        const kullanicisatiri = document.createElement("div");
+                        kullanicisatiri.textContent = mesaj;
+                        sohbetalani.appendChild(kullanicisatiri);
+                    });
+                
+            </script>
+
+    </body>
+
+</html>
+
+
