@@ -118,13 +118,13 @@
                 
                 h1 {
                 text-align: center;
-                color: rgb(236, 236, 236);
+                color: gray;
                 font-weight: bold;
                  }
 
                  h2 {
                 text-align: center;
-                color: rgb(236, 236, 236);
+                color: gray;
                 
                  }
                 
@@ -144,6 +144,29 @@
                     font-weight: bold;
                 }
 
+                #eskiler {
+                    margin-top: 20px;
+                }
+
+                .eskisatir {
+                    font-size: 16px;
+                    text-align: left;
+                    padding: 10px 12px;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    background-color: rgb(40, 40, 40);
+                    margin-bottom: 8px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .eskibaslik {
+                    font-size: 16px;
+                    text-align: left;
+                    padding: 10px 12px;
+                }
+
 
                
         </style>
@@ -159,7 +182,10 @@
             <div id="solpanel">
             <h3>Sohbet</h3>
             <button id="yenisohbet">Yeni sohbet</button>
+            <div id="eskiler">
+            <div class="eskibaslik">Son Kullanılanlar ⌄ </div>
             </div>
+             </div>
 
             <div id="sohbetalani"></div>
 
@@ -187,17 +213,31 @@
                 const sohbetalani = document.getElementById("sohbetalani");
                 console.log(sohbetalani);
 
+                let sohbetilk = "";
+
+                const eskiler = document.getElementById("eskiler");
+
                 gonderbutonu.addEventListener("click", 
                     async function() {
                         const mesaj = sohbetkutusu.value;
 
+                        if (sohbetilk === "") {
+                               sohbetilk = mesaj;
+                            }
+                            console.log(sohbetilk);
+
                         const kullanicisatiri = document.createElement("div");
                         kullanicisatiri.textContent = mesaj;
                         kullanicisatiri.className = "kullanici";
-
                         sohbetalani.appendChild(kullanicisatiri);
+                        sohbetalani.scrollTop = sohbetalani.scrollHeight;
 
                         sohbetkutusu.value = "";
+
+                        const bekleme = document.createElement("div");
+                        bekleme.textContent = "SSTEK AI düşünüyor...";
+                        bekleme.className = "bot";
+                        sohbetalani.appendChild(bekleme);
 
                         const sunucucevabi = await fetch("/chat", {
                                 method: "POST",
@@ -206,6 +246,7 @@
                                     });
 
                         const hamcevap = await sunucucevabi.json();
+                        bekleme.remove();
                         console.log(hamcevap);
 
                         const botsatiri=document.createElement("div");
@@ -213,6 +254,7 @@
 
                         botsatiri.className = "bot";
                         sohbetalani.appendChild(botsatiri);
+                        sohbetalani.scrollTop = sohbetalani.scrollHeight;
                     });
 
                     sohbetkutusu.addEventListener("keydown", function(gonder) {
@@ -223,6 +265,13 @@
 
                     yenisohbet.addEventListener("click", async function() {
                     await fetch("/sifirla", {method: "POST"});
+                    if (sohbetilk !== "") {
+                        const sohbetsatir = document.createElement("div");
+                        sohbetsatir.textContent = sohbetilk;
+                        sohbetsatir.className = "eskisatir";
+                        eskiler.appendChild(sohbetsatir);
+                            }
+                            sohbetilk = "";
                     sohbetalani.innerHTML = "";
 });
                 
